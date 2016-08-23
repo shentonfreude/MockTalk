@@ -12,19 +12,27 @@ class S3Bucket:
         self.s3 = boto3.resource('s3')
         self.bucket_name = bucket
 
-    def read(self, key):
-        """Return filehandle to key, or KeyError if nonexistent."""
+    def _get_object(self, key):
+        """Return the S3 Object at the key.
 
-        # Object() won't raise anything, even with bogus bucket or key
-        obj = self.s3.Object(bucket_name=self.bucket_name, key=key)
+        Object() won't raise anything, even with bogus bucket or key
+        so we can't detect bad bucket or key here.
+        """
+        return self.s3.Object(bucket_name=self.bucket_name, key=key)
+
+    def read(self, key):
+        """Return contents of key in bucket, or KeyError if nonexistent."""
+        obj = self._get_object(key)
         try:
-            resp = obj.get()
+            resp = obj.get(key)
         except ClientError as e:
             raise KeyError('read: bucket={} key={} : {}'.format(
                 self.bucket_name, key, e))
-        body_fp = resp['Body']
-        return body_fp
+        return resp['Body'].read()
 
 if __name__ == '__main__':
-    b = S3Bucket('BOGUS')
-    fp = b.read('BADKEY')
+    b = S3Bucket('NOBUCKET')
+    res = b.read('NOKEY')
+    b = S3Bucket('avail-public.dev.nasawestprime.com')
+    res = b.read('video/022315_Crawler 25th Anniversary_h.264/collection.json')
+    print(res)
