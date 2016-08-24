@@ -20,8 +20,13 @@ class S3Bucket:
         """
         return self.s3.Object(bucket_name=self.bucket_name, key=key)
 
+    # CRUD: create read update delete
+
+    def create(self, key, content):
+        """Write the content (str or readble); KeyError if key exists."""
+
     def read(self, key):
-        """Return contents of key in bucket, or KeyError if nonexistent."""
+        """Return contents at key; KeyError if nonexistent."""
         obj = self._get_object(key)
         try:
             resp = obj.get(key)
@@ -29,6 +34,12 @@ class S3Bucket:
             raise KeyError('read: bucket={} key={} : {}'.format(
                 self.bucket_name, key, e))
         return resp['Body'].read()
+
+    def update(self, key, contents):
+        """Replace contents (str or readable); KeyError if nonexistent."""
+
+    def delete(self, key):
+        """Delete the object at key, raises KeyError if nonexistent."""
 
 if __name__ == '__main__':
     b = S3Bucket('NOBUCKET')
