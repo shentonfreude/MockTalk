@@ -4,7 +4,7 @@ For Those About To Mock
 
 Slides and code for a DC Python meetup presentation on Mocks.
 
-As the Firesign Theater said,
+As the Firesign Theatre said,
 
   A power so great it can only be used for good or evil.
 
