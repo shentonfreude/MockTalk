@@ -21,16 +21,24 @@ If you're using Python < 3.3 you'll need to install mock.
 Run Tests
 =========
 
-Our sample code is in `fileutils.py`.
+Our sample code is in :file:`fileutils.py`.
 
 We're doing the most simple test discovery possible to prevent
 distracting from the mocks, so::
 
   python test_fileutils.py
 
-Make the docs::
+Make the docs
+=============
+
+Run Sphinx to make the docs; we're using the `Hieroglyph`_ slide package::
 
   cd docs make && make slides
+
+Then view them; with OS X::
+
   open build/slides/index.html
 
-If you don't have OSX `open` just point your browser at the file.
+or just point your browser at the file.
+
+.. _Hieroglyph: https://github.com/nyergler/hieroglyph
