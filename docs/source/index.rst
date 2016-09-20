@@ -78,12 +78,29 @@ attribute on the mock.
 .. literalinclude:: ../../test_fileutils_basic.py
    :emphasize-lines: 7,10-11
 
+.. note::
+
+   * Mock the item where it's used, not where it came from
+
+Basic Mock with Exception Side Effect
+-------------------------------------
+
+We can test exception handling by setting a side effect, and even
+check the message to make sure we're triggering the correct handler.
+
+.. literalinclude:: ../../test_fileutils_exception.py
+   :emphasize-lines: 8-11
+
+
 
 MagicMock
 ---------
 
 Mock with default-config
 ------------------------
+
+Mock decorator order
+--------------------
 
 
 Side effects: returns, exceptions, iterators
