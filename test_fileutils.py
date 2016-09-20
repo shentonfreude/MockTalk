@@ -44,8 +44,10 @@ class TestFileutils(TestCase):
     @patch('fileutils.os')
     def test_rmtry_multi_returns(self, mock_os):
         from fileutils import rmtry
-        mock_os.remove = MagicMock(
-            side_effect=[42, FileNotFoundError('nope')])
+        mock_os.remove = MagicMock(side_effect=(
+            42,
+            FileNotFoundError('nope'),
+        ))
         got = rmtry('1stPathOK')
         self.assertEqual(got, None)  # Nothing returned by our func
         with self.assertRaises(RuntimeError) as e:
