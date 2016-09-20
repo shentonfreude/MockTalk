@@ -364,9 +364,9 @@ html_use_index = False
 # }
 # Python2 required for themecore (impressjs),
 extensions += ['hieroglyph',
-               'sphinxjp.themes.revealjs',
-               'sphinxjp.themes.impressjs',
-               'sphinxjp.themes.s6',
+               # 'sphinxjp.themes.revealjs',
+               # 'sphinxjp.themes.impressjs',
+               # 'sphinxjp.themes.s6',
                # 'sphinxjp.themecore',
                ]
 
@@ -396,19 +396,3 @@ slide_title = 'For Those About To Mock (We Salute You)'
 # slide_theme = 'slides'
 slide_theme = 'single-level'  # avoid 2nd level falloff text
 slide_levels = 3  # default=3
-# Don't know how to do subtitle
-# slide_theme_options = {
-#     'presenters': [
-#         {'name': 'Chris Shenton',
-#          'twitter': '@shentonfreude',
-#          'email': 'chris@shenton.org',
-#          'www': 'http://www.v-studios.com',
-#          'github': 'https://github.com/shentonfreude',
-#          },
-#     ],
-#     'subtitle': 'SUBTITLE',
-# }
-
-# Default above is 'sphinx'
-# pygments_style = 'monokai' # when colored, not omnospaced
-# pygments_style = 'friendly' # when colored, not omnospaced

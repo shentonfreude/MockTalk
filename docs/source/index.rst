@@ -75,7 +75,8 @@ Basic Mock
 Mock out the *module's* version of `os`. Note we can access any
 attribute on the mock.
 
-.. literalinclude:: ../../test_fileutils_basic.py
+.. literalinclude:: ../../test_fileutils.py
+   :lines: 1-11
    :emphasize-lines: 7,10-11
 
 .. note::
@@ -85,12 +86,28 @@ attribute on the mock.
 Basic Mock with Exception Side Effect
 -------------------------------------
 
-We can test exception handling by setting a side effect, and even
-check the message to make sure we're triggering the correct handler.
+We can test exception handling by setting a side effect.
 
-.. literalinclude:: ../../test_fileutils_exception.py
-   :emphasize-lines: 8-11
+.. literalinclude:: ../../test_fileutils.py
+   :lines: 13-18
+   :emphasize-lines: 3-6
 
+We use the `with` context so we can easily use `pdb`.  We can also
+look at the exception message to ensure we've triggered the correct
+handler.
+
+Basic Mock: Decorator order is important
+----------------------------------------
+
+We can patch multiple calls, but order is important -- it's "inside
+out".
+
+.. literalinclude:: ../../test_fileutils.py
+   :lines: 20-29
+   :emphasize-lines: 1-3
+
+We can also look at the logging message to make sure we're triggering
+the correct code.
 
 
 MagicMock
