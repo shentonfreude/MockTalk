@@ -60,10 +60,9 @@ class TestFiler(TestCase):
     def test_rm(self, mock_os):
         from fileutils import Filer
         mock_filer = MagicMock(spec=Filer)
-        mock_filer.rm = MagicMock(return_value=None)  # BOGUS TEST
-        self.assertEqual(mock_filer.rm('x'), None)    # BOGUS TEST
+        self.assertTrue(hasattr(mock_filer, 'rm'))
         with self.assertRaises(AttributeError):
-            mock_filer.create_method_is_nonexistent('wtf')
+            mock_filer.create_method_we_removed('WMD')
 
 # MAIN
 if __name__ == '__main__':

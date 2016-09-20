@@ -13,10 +13,11 @@
 
 Chris Shenton
 
-chris@v-studios.com
-
 @shentonfreude
 
+chris@v-studios.com
+
+https://github.com/shentonfreude/Presentation-For_Those_About_To_Mock
 
 Unit Tests
 ==========
@@ -143,6 +144,9 @@ exception message to ensure we've got the correct handler. We use
    :end-before: TEST_RMTRY_MULTI_DECORATORS
    :emphasize-lines: 4-6
 
+.. note::
+   * There are other ways to set a mock including `patch` context
+     manager and adding a mock to a class instance under test.
 
 Basic Mock: Decorator order is "inside-out"
 -------------------------------------------
@@ -212,9 +216,9 @@ time our Mock is called, the next item in the iterator is returned.
 Mock Based on Existing Object
 -----------------------------
 
-You can create a Mock based on the `spec` of an existing object, so
-that if the object changes, tests referring to no-long-extant
-attributes will fail as they should.
+You can create a Mock based on the `spec` (call signature) of an
+existing object, so that if the object changes, tests referring to
+no-long-extant attributes will fail as they should.
 
 .. literalinclude:: ../../fileutils.py
    :lines: 18-22
@@ -222,7 +226,7 @@ attributes will fail as they should.
 .. literalinclude:: ../../test_fileutils.py
    :start-after: TESTFILER
    :end-before: MAIN
-   :emphasize-lines: 7-10
+   :emphasize-lines: 6-9
 
 
 
@@ -264,20 +268,17 @@ References 1
 * Foord's intro to unit testing includes mocks
   `<http://www.voidspace.org.uk/python/articles/introduction-to-unittest.shtml#duck-typing-and-mock-objects>`_
 
-* An Introduction to Mocking in Python
+* An Introduction to Mocking in Python (solid tutorial)
   `<https://www.toptal.com/python/an-introduction-to-mocking-in-python>`_
-
-* Python 201: An Intro to Mock
-  `<https://dzone.com/articles/python-201-an-intro-to-mock>`_
 
 References 2
 ============
 
-* Python Unit Testing with Mock
-  `<http://www.insomnihack.com/?p=194>`_
+* Python 201: An Intro to Mock (short and sweet)
+  `<https://dzone.com/articles/python-201-an-intro-to-mock>`_
 
-* Unit-Testing With unittest.mock.patch() (emphasis on context manager)
-  `<https://blog.petrzemek.net/2014/06/21/unit-testing-with-unittest-mock-patch/>`_
+* Python Unit Testing with Mock (quick example of mocking Twitter)
+  `<http://www.insomnihack.com/?p=194>`_
 
 * Mocking External APIs in Python (from 2016, very deep, good stuff)
   `<https://realpython.com/blog/python/testing-third-party-apis-with-mocks/>`_
