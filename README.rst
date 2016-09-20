@@ -2,7 +2,11 @@
 For Those About To Mock
 =======================
 
-Slides and code for a DC Python meetup presentation
+Slides and code for a DC Python meetup presentation on Mocks.
+
+As the Firesign Theater said,
+
+  A power so great it can only be used for good or evil.
 
 Virtualenv, Install
 ===================
@@ -21,7 +25,7 @@ If you're using Python < 3.3 you'll need to install mock.
 Run Tests
 =========
 
-Our sample code is in :file:`fileutils.py`.
+Our sample code is in ``fileutils.py``.
 
 We're doing the most simple test discovery possible to prevent
 distracting from the mocks, so::
@@ -31,14 +35,18 @@ distracting from the mocks, so::
 Make the docs
 =============
 
-Run Sphinx to make the docs; we're using the `Hieroglyph`_ slide package::
+Run Sphinx to make the docs. We are using the `Hieroglyph`_ to
+generate HTML slides::
 
-  cd docs make && make slides
+  cd docs make
+  make slides
 
-Then view them; with OS X::
+Then view them with OS X::
 
   open build/slides/index.html
 
 or just point your browser at the file.
+
+You can read the docs as a single flat doc by walking down to ``docs/source/index.rst``.
 
 .. _Hieroglyph: https://github.com/nyergler/hieroglyph
