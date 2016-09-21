@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>For Those About To Mock (We Salute You) &mdash; For Those About To Mock (We Salute You)</title>
+    
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/styles.css" type="text/css" />
+    <link rel="stylesheet" href="_static/single.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    
+    
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2016.09.19',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/common.js"></script>
+    
+    <script type="text/javascript" src="_static/slides.js"></script>
+    <script type="text/javascript" src="_static/sync.js"></script>
+    <script type="text/javascript" src="_static/controller.js"></script>
+    <script type="text/javascript" src="_static/init.js"></script>
+    
+    
+    <link rel="top" title="For Those About To Mock (We Salute You)" href="#" /> 
+  </head>
+  <body>
+
+<section
+   id="slide_container"
+   class='slides layout-regular'>
+
+
+  
+<article class="slide level-1" id="for-those-about-to-mock-we-salute-you">
+
+<h1>For Those About To Mock (We Salute You)</h1>
+
+<p>Chris Shenton</p>
+<p>&#64;shentonfreude</p>
+<p><a class="reference external" href="mailto:chris&#37;&#52;&#48;v-studios&#46;com">chris<span>&#64;</span>v-studios<span>&#46;</span>com</a></p>
+<p><a class="reference external" href="https://github.com/shentonfreude/Presentation-For_Those_About_To_Mock">https://github.com/shentonfreude/Presentation-For_Those_About_To_Mock</a></p>
+
+
+
+
+</article>
+<article class="slide level-2" id="unit-tests">
+
+<h2>Unit Tests</h2>
+
+<p>Unit tests test portions of your code in isolation. These should
+test your code, not any third-party code (e.g., libraries, system
+calls)</p>
+
+
+
+
+</article>
+<article class="slide level-3" id="unit-test-single-test-of-multiple-features">
+
+<h3>Unit Test: single test of multiple features</h3>
+
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">unittest</span> <span class="k">import</span> <span class="n">TestCase</span><span class="p">,</span> <span class="n">main</span>
+
+<span class="k">def</span> <span class="nf">twice</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">x</span>
+
+<span class="k">class</span> <span class="nc">TestTwice</span><span class="p">(</span><span class="n">TestCase</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">test_twice</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">got</span> <span class="o">=</span> <span class="n">twice</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">got</span><span class="p">,</span> <span class="mi">84</span><span class="p">)</span>
+        <span class="n">got</span> <span class="o">=</span> <span class="n">twice</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">got</span><span class="p">,</span> <span class="s1">&#39;aa&#39;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">TypeError</span><span class="p">):</span>
+            <span class="n">twice</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li>Most folks have a setUp() and tearDown() to keep tests isolated.</li>
+</ul>
+</div>
+
+
+
+
+</article>
+<article class="slide level-3" id="unit-test-separate-tests-of-multiple-features">
+
+<h3>Unit Test: separate tests of multiple features</h3>
+
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">unittest</span> <span class="k">import</span> <span class="n">TestCase</span><span class="p">,</span> <span class="n">main</span>
+
+<span class="k">def</span> <span class="nf">twice</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">x</span>
+
+<span class="k">class</span> <span class="nc">TestTwice</span><span class="p">(</span><span class="n">TestCase</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">test_number</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">got</span> <span class="o">=</span> <span class="n">twice</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">got</span><span class="p">,</span> <span class="mi">84</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_alpha</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">got</span> <span class="o">=</span> <span class="n">twice</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">got</span><span class="p">,</span> <span class="s1">&#39;aa&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_bad_input</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">TypeError</span><span class="p">):</span>
+            <span class="n">twice</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li>I prefer the isolation these individual tests provide, combined
+with setUp() and tearDown()</li>
+</ul>
+</div>
+
+
+
+
+</article>
+<article class="slide level-2" id="mocking-out-3rd-party-calls">
+
+<h2>Mocking out 3rd party calls</h2>
+
+<p>Sometimes code calls libraries or services or makes changes that you
+don't want to invoke in your tests, e.g.:</p>
+<ul class="simple">
+<li>database</li>
+<li>file storage</li>
+<li>cloud APIs</li>
+</ul>
+<p>You can substitute these calls with &quot;mocks&quot; so you can test your code
+without invoking the 3rd party code.</p>
+
+
+
+
+</article>
+<article class="slide level-2" id="unittest-mock">
+
+<h2>unittest.mock</h2>
+
+<p>We used to write our own fake implementations for every service, but
+Michael Foord's &quot;mock&quot; library provides a generic framework with tons
+of features. Mocks can</p>
+<ul class="simple">
+<li>return anything, even an iterable</li>
+<li>raise an exception</li>
+<li>tally calls and collect call arguments</li>
+<li>implement magic methods</li>
+<li>replicate a real class with mocked attributes</li>
+</ul>
+<p>unittest.mock is built into Python-3.3, else &quot;pip install&quot; it</p>
+
+
+
+
+</article>
+<article class="slide level-3" id="mock-considered-helpful">
+
+<h3>Mock considered helpful</h3>
+
+<p>Benefits:</p>
+<ul class="simple">
+<li>Don't save to actual production storage -- databases, search engines, etc.</li>
+<li>Don't connect to production services (authorization, cloud infrastructure)</li>
+<li>Run Continuous Intgration tests that can't reach 3rd party services</li>
+</ul>
+
+
+
+
+</article>
+<article class="slide level-3" id="mock-considered-harmful">
+
+<h3>Mock considered harmful?</h3>
+
+<p>Be careful: on a basic mock, you can ask for any attribute or method
+on a mock and it will exist, even if not supported by your actual call:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">skynet</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">if</span> <span class="n">skynet</span><span class="o">.</span><span class="n">is_self_aware</span><span class="p">():</span>
+<span class="gp">... </span>  <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;OMG, we are all gonna die&#39;</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="go">OMG, we are all gonna die</span>
+</pre></div>
+</div>
+<p>Basing the mock on an object will help:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">skynet</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">(</span><span class="n">spec</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">skynet</span><span class="o">.</span><span class="n">is_self_aware</span><span class="p">()</span>
+<span class="go">AttributeError: Mock object has no attribute &#39;is_self_aware&#39;</span>
+</pre></div>
+</div>
+
+
+
+
+</article>
+<article class="slide level-2" id="mocks-decorators-basic-exceptions-returns-magic">
+
+<h2>Mocks: Decorators, Basic, Exceptions, Returns, Magic</h2>
+
+<p>Next we show Mocks in various shapes:</p>
+<ul class="simple">
+<li>Basic mock, using a decorator</li>
+<li>Raising an exception when called, to invoke our handler</li>
+<li>Providing a return value to the caller</li>
+<li>MagicMocks with getter/setters</li>
+<li>Returnin a different object when called each time, including an exception</li>
+<li>Basing a Mock on an existing object to avoid false positives</li>
+</ul>
+
+
+
+
+</article>
+<article class="slide level-3" id="basic-mock">
+
+<h3>Basic Mock</h3>
+
+<p>Mock out the <em>module's</em> version of <cite>os</cite>. Note we can access any
+attribute on the mock, even it it does not exist!</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="k">def</span> <span class="nf">rm</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="hll">    <span class="nd">@patch</span><span class="p">(</span><span class="s1">&#39;fileutils.os&#39;</span><span class="p">)</span>
+</span><span class="hll">    <span class="k">def</span> <span class="nf">test_rm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mock_os</span><span class="p">):</span>
+</span>        <span class="kn">from</span> <span class="nn">fileutils</span> <span class="k">import</span> <span class="n">rm</span>
+        <span class="n">rm</span><span class="p">(</span><span class="s1">&#39;SOMEPATH&#39;</span><span class="p">)</span>
+<span class="hll">        <span class="n">mock_os</span><span class="o">.</span><span class="n">remove</span><span class="o">.</span><span class="n">assert_called_with</span><span class="p">(</span><span class="s1">&#39;SOMEPATH&#39;</span><span class="p">)</span>
+</span>        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">mock_os</span><span class="o">.</span><span class="n">flugelhorn</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span>
+
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li>Mock the item where it's used, not where it came from</li>
+</ul>
+</div>
+
+
+
+
+</article>
+<article class="slide level-3" id="basic-mock-with-exception-side-effect">
+
+<h3>Basic Mock with Exception Side Effect</h3>
+
+<p>Test exception handling by setting a side effect; we can check
+exception message to ensure we've got the correct handler. We use
+<cite>with</cite> context so we can easily use <cite>pdb</cite>.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">rmtry</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">FileNotFoundError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span>    <span class="nd">@patch</span><span class="p">(</span><span class="s1">&#39;fileutils.os&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">test_rmtry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mock_os</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">fileutils</span> <span class="k">import</span> <span class="n">rmtry</span>
+<span class="hll">        <span class="n">mock_os</span><span class="o">.</span><span class="n">remove</span><span class="o">.</span><span class="n">side_effect</span> <span class="o">=</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="s1">&#39;nope&#39;</span><span class="p">)</span>
+</span><span class="hll">        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">RuntimeError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+</span><span class="hll">            <span class="n">rmtry</span><span class="p">(</span><span class="s1">&#39;SOMEPATH&#39;</span><span class="p">)</span>
+</span>        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">exception</span><span class="o">.</span><span class="n">__str__</span><span class="p">(),</span> <span class="s1">&#39;nope&#39;</span><span class="p">)</span>
+
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li>There are other ways to set a mock including <cite>patch</cite> context
+manager and adding a mock to a class instance under test.</li>
+</ul>
+</div>
+
+
+
+
+</article>
+<article class="slide level-3" id="basic-mock-decorator-order-is-inside-out">
+
+<h3>Basic Mock: Decorator order is &quot;inside-out&quot;</h3>
+
+<p>List stacked decorators inside-out.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">rmtry</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">FileNotFoundError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="hll">    <span class="nd">@patch</span><span class="p">(</span><span class="s1">&#39;fileutils.logging&#39;</span><span class="p">)</span>
+</span><span class="hll">    <span class="nd">@patch</span><span class="p">(</span><span class="s1">&#39;fileutils.os&#39;</span><span class="p">)</span>
+</span><span class="hll">    <span class="k">def</span> <span class="nf">test_rmtry_multi_decorators</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mock_os</span><span class="p">,</span> <span class="n">mock_logging</span><span class="p">):</span>
+</span>        <span class="kn">from</span> <span class="nn">fileutils</span> <span class="k">import</span> <span class="n">rmtry</span>
+        <span class="n">mock_os</span><span class="o">.</span><span class="n">remove</span><span class="o">.</span><span class="n">side_effect</span> <span class="o">=</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="s1">&#39;nope&#39;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">RuntimeError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">rmtry</span><span class="p">(</span><span class="s1">&#39;SOMEPATH&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">exception</span><span class="o">.</span><span class="n">__str__</span><span class="p">(),</span> <span class="s1">&#39;nope&#39;</span><span class="p">)</span>
+        <span class="n">mock_logging</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="n">assert_called</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIn</span><span class="p">(</span><span class="s1">&#39;FileNotFoundError&#39;</span><span class="p">,</span>
+                      <span class="n">mock_logging</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="n">call_args</span><span class="o">.</span><span class="n">__str__</span><span class="p">())</span>
+
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li>We can also look at the logging message to make sure we're
+triggering the correct code.</li>
+</ul>
+</div>
+
+
+
+
+</article>
+<article class="slide level-3" id="magicmock">
+
+<h3>MagicMock</h3>
+
+<p>TFM says: &quot;In most of these examples the Mock and MagicMock classes are
+interchangeable. As the MagicMock is the more capable class it makes a
+sensible one to use by default.&quot;</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">my_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">getitem</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+<span class="gp">... </span>     <span class="k">return</span> <span class="n">my_dict</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">setitem</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">my_dict</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mock</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mock</span><span class="o">.</span><span class="n">__getitem__</span><span class="o">.</span><span class="n">side_effect</span> <span class="o">=</span> <span class="n">getitem</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mock</span><span class="o">.</span><span class="n">__setitem__</span><span class="o">.</span><span class="n">side_effect</span> <span class="o">=</span> <span class="n">setitem</span>
+</pre></div>
+</div>
+<p>We'll use MagicMocks in the subsequent examples. To be honest, I
+haven't leveraged these yet.</p>
+
+
+
+
+</article>
+<article class="slide level-3" id="return-value">
+
+<h3>Return Value</h3>
+
+<p>The Mock can return a value, with any structure we like.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">groups</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">getgroups</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span>    <span class="nd">@patch</span><span class="p">(</span><span class="s1">&#39;fileutils.os&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">test_os_getgroups</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mock_os</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">fileutils</span> <span class="k">import</span> <span class="n">groups</span>
+<span class="hll">        <span class="n">mock_os</span><span class="o">.</span><span class="n">getgroups</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">(</span><span class="n">return_value</span><span class="o">=</span><span class="p">[</span><span class="mi">42</span><span class="p">,</span> <span class="mi">666</span><span class="p">])</span>
+</span><span class="hll">        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">groups</span><span class="p">(),</span> <span class="p">[</span><span class="mi">42</span><span class="p">,</span> <span class="mi">666</span><span class="p">])</span>
+</span>
+</pre></div>
+</div>
+
+
+
+
+</article>
+<article class="slide level-3" id="different-returns-exception-as-side-effect">
+
+<h3>Different Returns, Exception as Side Effect</h3>
+
+<p>Return different things including causing an exception; each
+time our Mock is called, the next item in the iterator is returned.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>    <span class="nd">@patch</span><span class="p">(</span><span class="s1">&#39;fileutils.os&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">test_rmtry_multi_returns</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mock_os</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">fileutils</span> <span class="k">import</span> <span class="n">rmtry</span>
+<span class="hll">        <span class="n">mock_os</span><span class="o">.</span><span class="n">remove</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">(</span><span class="n">side_effect</span><span class="o">=</span><span class="p">(</span>
+</span><span class="hll">            <span class="mi">42</span><span class="p">,</span>
+</span>            <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="s1">&#39;nope&#39;</span><span class="p">),</span>
+        <span class="p">))</span>
+<span class="hll">        <span class="n">got</span> <span class="o">=</span> <span class="n">rmtry</span><span class="p">(</span><span class="s1">&#39;1stPathOK&#39;</span><span class="p">)</span>
+</span><span class="hll">        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">got</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>  <span class="c1"># Nothing returned by our func</span>
+</span>        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">RuntimeError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">rmtry</span><span class="p">(</span><span class="s1">&#39;2ndPathMissing&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">exception</span><span class="o">.</span><span class="n">__str__</span><span class="p">(),</span> <span class="s1">&#39;nope&#39;</span><span class="p">)</span>
+
+</pre></div>
+</div>
+
+
+
+
+</article>
+<article class="slide level-3" id="mock-based-on-existing-object">
+
+<h3>Mock Based on Existing Object</h3>
+
+<p>You can create a Mock based on the <cite>spec</cite> (call signature) of an
+existing object, so that if the object changes, tests referring to
+no-long-extant attributes will fail as they should.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Filer</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+    <span class="k">def</span> <span class="nf">rm</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">TestFiler</span><span class="p">(</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="nd">@patch</span><span class="p">(</span><span class="s1">&#39;fileutils.os&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">test_rm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mock_os</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">fileutils</span> <span class="k">import</span> <span class="n">Filer</span>
+        <span class="n">mock_filer</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">(</span><span class="n">spec</span><span class="o">=</span><span class="n">Filer</span><span class="p">)</span>
+<span class="hll">        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="nb">hasattr</span><span class="p">(</span><span class="n">mock_filer</span><span class="p">,</span> <span class="s1">&#39;rm&#39;</span><span class="p">))</span>
+</span><span class="hll">        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">AttributeError</span><span class="p">):</span>
+</span><span class="hll">            <span class="n">mock_filer</span><span class="o">.</span><span class="n">create_method_we_removed</span><span class="p">(</span><span class="s1">&#39;WMD&#39;</span><span class="p">)</span>
+</span><span class="hll">
+</span></pre></div>
+</div>
+
+
+
+
+</article>
+<article class="slide level-2" id="common-patterns-we-ve-fallen-into">
+
+<h2>Common Patterns We've Fallen Into</h2>
+
+<ul class="simple">
+<li>creating webapp sessions with authenticated fake user objects</li>
+<li>checking log/exception message content to ensure we're triggering the desired code</li>
+<li><cite>with</cite> exception handling to allow <cite>pdb</cite> into the function under test</li>
+<li>check mock_thing.assert_called_with(...)</li>
+</ul>
+
+
+
+
+</article>
+<article class="slide level-2" id="that-s-a-gotcha-question">
+
+<h2>That's a gotcha question</h2>
+
+<p>Parameter defaults evaluated at definition, not runtime:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">test_foo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">something</span><span class="o">=</span><span class="n">Mock</span><span class="p">()):</span>
+    <span class="c1"># some setup and tests...</span>
+</pre></div>
+</div>
+<p>Here <cite>something</cite> will get set to a specific value, and changes to it
+will be seen by every other user of that object, even in separate
+tests. Instead do:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">test_foo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">something</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">something</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">::</span>
+        <span class="n">something</span> <span class="o">=</span> <span class="n">Mock</span><span class="p">()</span>
+    <span class="c1"># some setup and tests...</span>
+</pre></div>
+</div>
+
+
+
+
+</article>
+<article class="slide level-2" id="references-1">
+
+<h2>References 1</h2>
+
+<ul class="simple">
+<li>Python 3 unittest.mock
+<a class="reference external" href="https://docs.python.org/3/library/unittest.mock-examples.html">https://docs.python.org/3/library/unittest.mock-examples.html</a></li>
+<li>Mock 1.0.1 documentation (Foord's older docs, some good narrative)
+<a class="reference external" href="http://www.voidspace.org.uk/python/mock/#">http://www.voidspace.org.uk/python/mock/#</a></li>
+<li>Foord's intro to unit testing includes mocks
+<a class="reference external" href="http://www.voidspace.org.uk/python/articles/introduction-to-unittest.shtml#duck-typing-and-mock-objects">http://www.voidspace.org.uk/python/articles/introduction-to-unittest.shtml#duck-typing-and-mock-objects</a></li>
+<li>An Introduction to Mocking in Python (solid tutorial)
+<a class="reference external" href="https://www.toptal.com/python/an-introduction-to-mocking-in-python">https://www.toptal.com/python/an-introduction-to-mocking-in-python</a></li>
+</ul>
+
+
+
+
+</article>
+<article class="slide level-2" id="references-2">
+
+<h2>References 2</h2>
+
+<ul class="simple">
+<li>Python 201: An Intro to Mock (short and sweet)
+<a class="reference external" href="https://dzone.com/articles/python-201-an-intro-to-mock">https://dzone.com/articles/python-201-an-intro-to-mock</a></li>
+<li>Python Unit Testing with Mock (quick example of mocking Twitter)
+<a class="reference external" href="http://www.insomnihack.com/?p=194">http://www.insomnihack.com/?p=194</a></li>
+<li>Mocking External APIs in Python (from 2016, very deep, good stuff)
+<a class="reference external" href="https://realpython.com/blog/python/testing-third-party-apis-with-mocks/">https://realpython.com/blog/python/testing-third-party-apis-with-mocks/</a></li>
+</ul>
+
+
+
+
+</article>
+
+</section>
+
+<section id="slide_notes">
+
+</section>
+
+  </body>
+</html>
